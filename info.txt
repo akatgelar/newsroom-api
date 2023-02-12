@@ -1,0 +1,55 @@
+https://www.toptal.com/laravel/restful-laravel-api-tutorial
+https://medium.com/@djiwandou/cara-setup-openapi-swagger-di-laravel-c2e59c86b010
+https://www.rumahweb.com/journal/cara-upload-laravel-ke-hosting-cpanel/
+https://www.tutsmake.com/deploy-laravel-8-to-cpanel-shared-hosting/
+
+composer install
+php artisan serve
+php artisan make:model Contact -a
+php artisan make:migration create_users_table
+php artisan make:migration add_votes_to_users_table --table=users
+php artisan make:migration create_users_table --create=users
+php artisan migrate
+php artisan migrate:rollback
+php artisan migrate:reset
+php artisan migrate:fresh
+php artisan migrate:fresh --seed
+php artisan db:seed
+php artisan config:cache
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+php artisan cache:clear
+php artisan l5-swagger:generate
+
+
+
+# untuk force https
+app/Provides/RouteServiceProvider
+public function boot()
+resolve(\Illuminate\Routing\UrlGenerator::class)->forceScheme('https');
+
+
+# untuk tambah opsi server di swagger
+storage/api-docs/api-docs.json
+"servers": [
+    {
+    "url": "/api/",
+    "description": "Production Server"
+    },
+    {
+    "url": "/",
+    "description": "Local Server"
+    }
+],
+
+
+# config nolock
+# edit vendor
+vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php
+//return file_put_contents($path, $contents, $lock ? LOCK_EX : 0);
+return file_put_contents($path, $contents, $lock ? LOCK_SH : 0);
+
+
+# remove cache
+remove file bootstrap/cache/config.php
